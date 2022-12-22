@@ -1,0 +1,24 @@
+{
+    "name": "FM-WEB",
+    "description": "Версия приложения FM для браузера",
+    "version": "1.0",
+    "author": "Denisto Coding",
+    "manifest_version": 3,
+
+    "action": {
+        "default_icon": {
+            "16": "icn/x16.png",
+            "32": "icn/x32.png",
+            "48": "icn/x48.png",
+            "128": "icn/x128.png"
+        },
+        "default_popup": "main_screen.html"
+    },
+    "icons": {
+        "16":"icn/x16.png",
+        "32":"icn/x32.png",
+        "48":"icn/x48.png",
+        "128":"icn/x128.png"
+    },
+    "permissions": ["activeTab", "scripting"]
+}

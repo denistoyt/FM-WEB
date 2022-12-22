@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="todo">
+        <header>
+            <div class="header__tasks_control">
+                <span class="task__title">Название главной задачи</span>
+                <div class="todo__input">
+                    <input class="todo__text" type="text">
+                    <span class="todo__add"></span>
+                </div>
+            </div>
+        </header>
+        <section class="todo__content">
+            <div class="task_status">
+                <select class="todo__options">
+                    <option value="active">Активно</option>
+                    <option value="completed">Выполнено</option>
+                    <option value="deleted" hidden>Удалено</option>
+                </select>
+            </div>
+            <div>
+                <ul class="todo__items" data-todo-option="active"></ul>
+            </div>
+        </section>
+    </main>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>

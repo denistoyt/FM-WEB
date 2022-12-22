@@ -1,0 +1,385 @@
+@font-face {
+    font-family: "FM-Font";
+    src: url("../fonts/Minipax-Regular.otf") format("opentype"),
+    url("../fonts/Minipax-Medium.otf") format("opentype"), url("../fonts/Minipax-SemiBold.otf") format("opentype"), url("../fonts/Minipax-Bold.otf") format("opentype");
+}
+:root {
+    --main-color: #545454;
+    --white: #fff;
+    --black: #000;
+    --add-text-color: #303030;
+    --elems-shadow: rgba(0, 0, 0, 0.295);
+    --text-color: #eeee;
+    --range-thumb-color: #626262;
+    --range-slider-color: #c1c1c1;
+    --range-slider-select-color: #b4b4b4;
+    --task-bg: #8b8b8b;
+    --main-task-bg: #b55e5e;
+    --subtask-bg: #707070;
+    --subtask-complete-bg: #44944A;
+    --task-option-btn-color: #414141;
+    --task-data-color: #2e2e2e;
+    --modal-fade-bg: rgba(139, 139, 139, .2);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: 400 1rem 'FM-Font', sans-serif;
+}
+body {
+    min-width: 500px;
+    min-height: 350px;
+    max-width: 500px;
+    max-height: 350px;
+    overflow-y: scroll;
+    background: var(--main-color);
+}
+.todo {
+    min-height: 350px;
+    max-height: 350px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+/* оформление скроллбара */
+.todo::-webkit-scrollbar {
+    width: 4px;
+}
+.todo::-webkit-scrollbar-track {
+    background: var(--main-color);
+}
+.todo::-webkit-scrollbar-thumb {
+    background: var(--task-data-color);
+    border-radius: 5px;
+    box-shadow: 0 2px 4px var(--elems-shadow);
+}
+.todo::-webkit-scrollbar-track-piece {
+    background: var(--main-color);
+}
+header {
+    height: 54px;
+    box-shadow: 0 2px 4px var(--elems-shadow);
+    color: var(--text-color);
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+header button {
+    background: transparent;
+    padding: 2px;
+    font-size: 1.25em;
+}
+button {
+    border: none;
+    font-family: "FM-Font", sans-serif;
+    cursor: pointer;
+}
+/* header */
+.header__tasks_control {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+.tasks_control-add, .task_control-delete, .opacity_control-lock {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tasks_control-add span::after {
+    content: url("../icn/24/add.png");
+}
+.tasks_control-delete span::after {
+    content: url("../icn/24/delete.png");
+}
+.todo__content {
+    margin-top: 10px;
+}
+.task_status {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.theme_name {
+    font-weight: 700;
+    color: var(--main-color);
+}
+.task_theme {
+    padding-left: 5px;
+    color: var(--white)!important;
+    word-break: break-all;
+}
+/*  
+    task lists 
+*/
+.task__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px 5px 10px;
+    background: var(--task-bg);
+    border-radius: 5px;
+    margin: 0 20px;
+    transition: all .6s ease;
+    transform: scale(100%);
+}
+.task__block div:first-child {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+}
+.task__block:not(:last-child) {
+    margin-bottom: 2px;
+}
+.insert__subtask {
+    display: none;
+    padding: 5px 0 5px 40px;
+    margin: 0 20px;
+    position: relative;
+}
+.subtask__items {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+.subtask__item {
+    background: var(--subtask-bg);
+    padding: 5px 10px;
+    border-radius: 10px;
+    list-style-type: none;
+    transition: all .6s ease;
+    transform: scale(100%);
+    box-shadow: 2px 2px 4px var(--elems-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.subtask__item:hover {
+    transform: scale(101%);
+}
+.subtask_content {
+    word-break: break-all;
+}
+.task_is_not_main, .task_main {
+    width: 20px;
+    height: 20px;
+}
+.task_is_not_main::before {
+    content: url("../icn/24/not_main.png");
+}
+.task_main::before {
+    content: url("../icn/24/main.png");
+}
+.todo__input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.todo__text {
+    width: 225px;
+    padding: 6px 34px 6px 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: var(--task-option-btn-color);
+    color: var(--white);
+    box-shadow: 1px 0px 4px var(--elems-shadow);
+    transition: all .6s ease;
+}
+.todo__text:focus {
+    border-color: var(--elems-shadow);
+    box-shadow: 2px 2px 4px var(--elems-shadow);
+}
+.todo__add {
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.todo__add:hover::before {
+    content: url("../icn/24/add_hover.png");
+    width: 20px;
+    height: 20px;
+}
+.todo__text:disabled + .todo__add {
+    background-color: transparent;
+    cursor: default;
+    opacity: 0.5;
+}
+.todo__add::before {
+    content: url("../icn/24/add.png");
+    width: 20px;
+    height: 20px;
+}
+.todo__options {
+    width: 130px;
+    max-width: 130px;
+    padding: 5px 25px 6px 12px;
+    color: var(--white);
+    background: url("../icn/24/subtask.png") 110px 7px / cover no-repeat;
+    background-color: var(--task-option-btn-color);
+    box-shadow: 2px 2px 4px var(--elems-shadow);
+    background-size: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    display: flex;
+    align-items: end;
+}
+/* скрываем дефолтную стрелку в IE10 и IE11 */
+.todo__options::-ms-expand {
+    display: none;
+}
+.todo__options > option {
+    color: #212529;
+    background-color: #fff;
+}
+.todo__items {
+    margin-top: 10px;
+    width: 100%;
+    padding-left: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.task__block div:first-child {
+    max-width: 330px;
+}
+.todo__task {
+    word-wrap: break-all;
+}
+.task__block div:last-child {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.todo__task {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.task__title {
+    font-size: 14px;
+}
+.todo__task span {
+    color: var(--add-text-color);
+}
+.task__block:hover {
+    transform: scale(101%);
+}
+.todo__date {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.todo__date span, .subtask_add-date, .subtask_completed-date{
+    color: var(--task-data-color);
+    font: 400 12px 'Montserrat', sans-serif;
+    text-shadow: 2px 0 4px var(--elems-shadow);
+}
+.todo__action, .task_main_set {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: top 0.3s ease-in;
+}
+.todo__action_add::before {
+    content: url("../icn/24/add.png");
+    width: 20px;
+    height: 20px;
+}
+.todo__action_restore::before {
+    content: url("../icn/24/restore.png");
+    width: 20px;
+    height: 20px;
+}
+.todo__action_complete::before {
+    content: url("../icn/24/apply.png");
+    width: 20px;
+    height: 20px;
+}
+.todo__action_delete::before {
+    content: url("../icn/24/remove.png");
+    width: 20px;
+    height: 20px;
+}
+.task__block:hover .todo__action:hover {
+    opacity: 1;
+}
+[data-todo-state="active"] .todo__action_restore,
+[data-todo-state="completed"] .todo__action_completee {
+    display: none;
+}
+[data-todo-state="completed"] {
+    text-decoration: underline;
+    color: var(--add-text-color);
+}
+[data-todo-state="completed"] .todo__action_complete, [data-todo-state="completed"] .todo__action_add {
+    display: none;
+}
+[data-todo-state="sub_completed"] .todo__action_complete {
+    display: none;
+}
+[data-todo-state="completed"] .subtask_settings [data-todo-action="sub-deleted"] {
+    display: none;
+}
+[data-todo-option="active"] .todo__item:not([data-todo-state="active"]),
+[data-todo-option="completed"] .todo__item:not([data-todo-state="completed"]) {
+    display: none;
+}
+
+/* modal window */
+.subtask__modal_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+.modal-content {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.subtask_text_save-btn {
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin-top: 10px;
+    background: var( --task-option-btn-color);
+    color: var(--white);
+    opacity: 1;
+}
+label[for="subtaskEnterText"] {
+    margin-bottom: 5px;
+}
+.modal-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--modal-fade-bg);
+    z-index: 1;
+}
